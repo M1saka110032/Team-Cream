@@ -42,17 +42,18 @@ class Dance(Node):
     
     def dance(self):
         moves = [
-            (0.0, 0.0, 0.0,0.0),
-            (50.0, 0.0, 0.0,-30.0),
-            (50.0, 0.0, 0.0,-30.0),
-            (50.0, 0.0, 0.0,-30.0),
-            (-50.0, 0.0, 0.0,30.0),
-            (-50.0, 0.0, 0.0,30.0),
-            (-50.0, 0.0, 0.0,30.0),
+            (0, 0, 0, 0),
+            (50, 0, 0,-30),
+            (50, 0, 0,-30),
+            (50, 0, 0,-30),
+            (-50, 0, 0,30),
+            (-50, 0, 0,30),
+            (-50, 0, 0,30),
         ]
         for x, y, z, r in moves:
+            x, y, z, r = float(x),float(y),float(z),float(r)
             self.get_logger().info(f"x: {x} y: {y} z: {z} r: {r}")
-            self.publish_manual_control(x, y, z, r)
+            self.publish_manual_control(x ,y, z, r)
             time.sleep(1.0)
         self.call_service(False, "Vehicle disarmed.")
 
