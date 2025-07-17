@@ -20,7 +20,7 @@ class forward_move(Node):
             msg.r = -40.0
             msg.buttons = 0
             self.pub.publish(msg)
-            self.get_logger().info("Moving: x={}, y={}, z={}".format(msg.x, msg.y, msg.z))
+            self.get_logger().info("Moving: msg.x={}, msg.y={}, msg.z={}, msg.r={}".format(msg.x, msg.y, msg.z,msg.r))
             self.publish_count += 1
         else:
             self.stop_and_shutdown()
