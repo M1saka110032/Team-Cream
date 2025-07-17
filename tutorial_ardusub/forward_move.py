@@ -16,8 +16,8 @@ class forward_move(Node):
             msg = ManualControl()
             msg.x = 0.0
             msg.y = 0.0
-            msg.z = 50.0
-            msg.r = 0.0
+            msg.z = 0.0
+            msg.r = -40.0
             msg.buttons = 0
             self.pub.publish(msg)
             self.get_logger().info("Moving: x={}, y={}, z={}".format(msg.x, msg.y, msg.z))
@@ -31,7 +31,7 @@ class forward_move(Node):
         msg.x = 0.0
         msg.y = 0.0
         msg.z = 0.0
-        msg.r = 0.0
+        msg.r = -40.0
         msg.buttons = 0
         self.pub.publish(msg)
         self.get_logger().info("Stop Moving.")
