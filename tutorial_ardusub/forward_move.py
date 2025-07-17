@@ -14,10 +14,10 @@ class forward_move(Node):
     def publish_manual_control(self):
         if self.publish_count < 10:  # 10 times after close the node
             msg = ManualControl()
-            msg.x = 50.0
+            msg.x = 0.0
             msg.y = 0.0
-            msg.z = 30.0
-            msg.r = 50.0
+            msg.z = 50.0
+            msg.r = 0.0
             msg.buttons = 0
             self.pub.publish(msg)
             self.get_logger().info("Moving: x={}, y={}, z={}".format(msg.x, msg.y, msg.z))
