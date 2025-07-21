@@ -1,0 +1,16 @@
+launch:
+  - node:
+      pkg: "tutorial_ardusub"
+      exec: "ArmClient"
+      name: "arm_client"
+      namespace: ""
+  - node:
+      pkg: "tutorial_ardusub"
+      exec: "calcdepth"
+      name: "depth_publisher"
+      namespace: ""
+  - node:
+      pkg: "tutorial_ardusub"
+      exec: "depthhold"
+      name: "depth_control"
+      namespace: ""

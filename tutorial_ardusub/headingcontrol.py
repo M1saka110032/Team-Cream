@@ -1,7 +1,6 @@
 import rclpy    # the ROS 2 client library for Python
 from rclpy.node import Node    # the ROS 2 Node class
-from std_msgs.msg import Int16    # the Int16 message type definition
-from mavros_msgs.msg import ManualControl
+from std_msgs.msg import Int16 , Float64    # the Int16 message type definition
 import numpy as np
 
 class headingcontrol(Node):
@@ -12,7 +11,7 @@ class headingcontrol(Node):
         self.kd = 0.1
 
         self.i = 0.0
-        self.goal = 90
+        self.goal = 10
 
         self.p_error = 0
         self.p_time = self.get_clock().now()
@@ -24,19 +23,20 @@ class headingcontrol(Node):
             10              # QOS (will be covered later)
         )
 
-        self.pub = self.create_publisher(ManualControl, "/manual_control", 10)
+        self.goal_sub = self.create_subscription(
+            Int16, "/set_heading_goal", self.set_goal_callback, 10)
+
+        self.pub = self.create_publisher(Float64, "/heading_control_output", 10)
 
         self.get_logger().info("initialized HeadingControl node")
 
-    def publish_manual_control(self, r):
-        msg = ManualControl()
-        msg.x = 0.0
-        msg.y = 0.0
-        msg.z = 0.0
-        msg.r = float(r)
-        msg.buttons = 0
-        self.pub.publish(msg)
-        self.get_logger().info("Moving: msg.x={}, msg.y={}, msg.z={}, msg.r={}".format(msg.x, msg.y, msg.z,msg.r))
+    def set_goal_callback(self, msg):
+        new_goal = msg.data
+        if new_goal <= 0 or new_goal >= 359:
+            self.get_logger().warn("Goal heading must be between 0 and 359 degrees, ignoring update.")
+            return
+        self.goal = new_goal
+        self.get_logger().info(f"Updated goal heading to: {self.goal} degrees")
     
     def heading_control(self, msg):
         self.heading = msg.data
@@ -60,11 +60,13 @@ class headingcontrol(Node):
         u = u_p + u_i + u_d
 
         u = np.clip(u, -60, 60)
-
-        self.publish_manual_control(u)
+        
+        m = Float64()
+        m.data = u
+        self.pub.publish(m)
 
         self.p_time = self.c_time
-        self.p_error = self.p_error
+        self.p_error = c_error
 
         self.get_logger().info(f"Goal: {self.goal} Error: {c_error} Force: {u}")
 
