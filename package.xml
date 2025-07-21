@@ -13,6 +13,8 @@
   <depend>pymavlink</depend>
   <depend>mavros_msgs</depend>
   <depend>time</depend>
+  <depend>std_msgs</depend>
+  
 
   
 

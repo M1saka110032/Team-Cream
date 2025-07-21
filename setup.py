@@ -24,6 +24,8 @@ setup(
             "ArmClient = tutorial_ardusub.ArmClient:main",
             "forward_move = tutorial_ardusub.forward_move:main",
             "Dance = tutorial_ardusub.Dance:main",
+            "depthhold = tutorial_ardusub.depthhold:main",
+            "headingcontrol = tutorial_ardusub.headingcontrol:main",
         ],
     },
 )
