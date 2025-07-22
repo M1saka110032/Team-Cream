@@ -70,7 +70,7 @@ class DepthControl(Node):
         self.p_time = self.c_time
         self.p_error = self.c_error
 
-        self.get_logger().info(f"Goal: {self.goal:.2f} Error: {self.c_error:.2f} Force: {self.u:.2f}")
+        self.get_logger().info(f"Z Goal: {self.goal:.2f} Z Error: {self.c_error:.2f} Z Force: {self.u:.2f}")
 
 
         
