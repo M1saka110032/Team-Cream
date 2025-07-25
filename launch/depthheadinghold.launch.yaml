@@ -19,11 +19,13 @@ launch:
       exec: "depthhold"
       name: "depth_control"
       namespace: ""
+
   - node:
       pkg: "tutorial_ardusub"
       exec: "headingcontrol"
       name: "heading_control"
       namespace: ""
+
   - node:
       pkg: "tutorial_ardusub"
       exec: "controlMsgPub"
